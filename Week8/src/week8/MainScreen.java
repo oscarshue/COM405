@@ -30,6 +30,8 @@ public class MainScreen extends JFrame implements ActionListener {
     private CarPark carPark;
     private Cars car;
 
+    int emptySpaces = 15;
+
     public MainScreen() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridBagLayout());
@@ -120,14 +122,17 @@ public class MainScreen extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int emptySpaces;
 
         if (e.getSource().equals(btnAdd)) {
             car = new Cars(txtReg.toString(), txtColour.toString(), txtMake.toString(), txtModel.toString());
-            carPark.addCar(car);
-            emptySpaces = carPark.calcEmptySpaces();
-            lblStatus.setText("Car has " + emptySpaces + " empty car park spaces");
-       } else if (e.getSource().equals(btnRemove)) {
+            if (emptySpaces > 0) {
+                carPark.addCar(car);
+                emptySpaces = carPark.calcEmptySpaces();
+                lblStatus.setText("Car has " + emptySpaces + " empty car park spaces");
+            } else {
+                lblStatus.setText("Car Park has no empty spaces");
+            }
+        } else if (e.getSource().equals(btnRemove)) {
             carPark.removeCar(txtReg.toString());
             emptySpaces = carPark.calcEmptySpaces();
             lblStatus.setText("Car has " + emptySpaces + " empty car park spaces");
