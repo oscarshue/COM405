@@ -1,5 +1,7 @@
 package week8;
 
+import javax.swing.JTextField;
+
 public class CarPark {
 
     private Cars[] spaces;

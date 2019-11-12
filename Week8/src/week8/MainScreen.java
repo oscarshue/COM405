@@ -2,12 +2,14 @@ package week8;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class MainScreen extends JFrame {
+public class MainScreen extends JFrame implements ActionListener {
 
     private JLabel lblReg;
     private JLabel lblColour;
@@ -25,6 +27,9 @@ public class MainScreen extends JFrame {
 
     private GridBagConstraints constraints;
 
+    private CarPark carPark;
+    private Cars car;
+
     public MainScreen() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridBagLayout());
@@ -32,6 +37,8 @@ public class MainScreen extends JFrame {
         initialiseComponents();
 
         LayoutComponents();
+
+        carPark = new CarPark();
     }
 
     public void initialiseComponents() {
@@ -48,63 +55,82 @@ public class MainScreen extends JFrame {
 
         btnAdd = new JButton("Add");
         btnRemove = new JButton("Remove");
+
+        btnAdd.addActionListener(this);
+        btnRemove.addActionListener(this);
     }
 
-    public void LayoutComponents() {        
+    public void LayoutComponents() {
         constraints = new GridBagConstraints();
-        
+
         constraints.gridy = 0;
         constraints.gridx = 0;
         this.add(lblReg, constraints);
-        
+
         constraints.gridy = 0;
         constraints.gridx = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         this.add(txtReg, constraints);
-        
+
         constraints.gridy = 1;
         constraints.gridx = 0;
         constraints.fill = GridBagConstraints.NONE;
         this.add(lblColour, constraints);
-        
+
         constraints.gridy = 1;
         constraints.gridx = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         this.add(txtColour, constraints);
-        
+
         constraints.gridy = 2;
         constraints.gridx = 0;
         constraints.fill = GridBagConstraints.NONE;
         this.add(lblMake, constraints);
-        
+
         constraints.gridy = 2;
         constraints.gridx = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         this.add(txtMake, constraints);
-        
+
         constraints.gridy = 3;
         constraints.gridx = 0;
         constraints.fill = GridBagConstraints.NONE;
         this.add(lblModel, constraints);
-        
+
         constraints.gridy = 3;
         constraints.gridx = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         this.add(txtModel, constraints);
-        
+
         constraints.gridy = 4;
         constraints.gridx = 0;
         constraints.gridwidth = 2;
         constraints.fill = GridBagConstraints.NONE;
         this.add(lblStatus, constraints);
-        
+
         constraints.gridwidth = 1;
         constraints.gridy = 5;
         constraints.gridx = 0;
         this.add(btnAdd, constraints);
-        
+
         constraints.gridy = 5;
         constraints.gridx = 1;
         this.add(btnRemove, constraints);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        int emptySpaces;
+
+        if (e.getSource().equals(btnAdd)) {
+            car = new Cars(txtReg.toString(), txtColour.toString(), txtMake.toString(), txtModel.toString());
+            carPark.addCar(car);
+            emptySpaces = carPark.calcEmptySpaces();
+            lblStatus.setText("Car has " + emptySpaces + " empty car park spaces");
+       } else if (e.getSource().equals(btnRemove)) {
+            carPark.removeCar(txtReg.toString());
+            emptySpaces = carPark.calcEmptySpaces();
+            lblStatus.setText("Car has " + emptySpaces + " empty car park spaces");
+        }
     }
 }
