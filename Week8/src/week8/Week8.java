@@ -23,8 +23,14 @@ public class Week8 {
                 System.out.println("You have chosen to add a car");
                 System.out.println("Please enter a reg number:");
                 String reg = scanIn.nextLine();
-
-                Cars c1 = new Cars(reg);
+                System.out.println("Please enter a colour:");
+                String colour = scanIn.nextLine();
+                System.out.println("Please enter a make:");
+                String make = scanIn.nextLine();
+                System.out.println("Please enter a model:");
+                String model = scanIn.nextLine();
+                
+                Cars c1 = new Cars(reg, colour, make, model);
 
                 if (cp.addCar(c1)) {
                     System.out.println("Car was successfully added!");
