@@ -5,6 +5,10 @@ public class Car extends Vehicle {
     private double fee = 5;
     protected int weight;
 
+    public Car(String regNumberIn, int weightIn) {
+        super(regNumberIn, weightIn);
+    }
+
     @Override
     public double CalculateFee() {
         if (weight > 1590) {

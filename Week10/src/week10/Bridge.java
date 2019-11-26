@@ -6,10 +6,9 @@ public class Bridge {
     private int maxWeightLimit = 30000;
     private int currentVehicleCount;
     private Vehicle[] vehicle = new Vehicle[20];
-
-    public Bridge() {
-
-    }
+    private Motorbike mb;
+    private Car car;
+    private Lorry lorry;
 
     public int CalcTotalWeight() {
         for (int i = 0; i < vehicle.length; i++) {
@@ -25,11 +24,20 @@ public class Bridge {
         for (int i = 0; i < vehicle.length; i++) {
             if (vehicle[i] == null) {
                 if (currentVehicleCount < vehicle.length && totalWeight < maxWeightLimit) {
-                    // Add Vehicle
-                } else {
-                    // Vehicle not added
-                }
-                break;
+                    if (weightIn < 3500) {
+                        if (weightIn + totalWeight < maxWeightLimit) {
+                            mb = new Motorbike(regNumberIn, weightIn);
+                        }
+                    } else if (weightIn >= 3500 & weightIn < 6000) {
+                        if (weightIn + totalWeight < maxWeightLimit) {
+                            car = new Car(regNumberIn, weightIn);
+                        }
+                    } else if (weightIn >= 6000) {
+                        if (weightIn + totalWeight < maxWeightLimit) {
+                            lorry = new Lorry(regNumberIn, weightIn);
+                        }
+                    }
+                }                
             }
         }
     }
