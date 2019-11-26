@@ -20,6 +20,8 @@ public class Bridge {
         return totalWeight;
     }
 
+    // Parse a vehicle object via method rather than what is below and handle
+    // the addition of the vehicle predomiantly in the gui.
     public void AddVehicle(String regNumberIn, int weightIn) {
         for (int i = 0; i < vehicle.length; i++) {
             if (vehicle[i] == null) {
