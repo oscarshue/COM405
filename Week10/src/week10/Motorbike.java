@@ -2,7 +2,7 @@ package week10;
 
 public class Motorbike extends Vehicle {
 
-    private int fee;
+    private double fee = 3;
 
     @Override
     public double CalculateFee() {
